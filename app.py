@@ -25,6 +25,20 @@ def complete_task(task_index):
             print(f"Lỗi: Chỉ số {task_index} không hợp lệ.")
     except (TypeError, ValueError):
         print("Lỗi: Chỉ số công việc phải là một số nguyên.")
+def delete_task(task_index):
+    """Xóa một công việc khỏi danh sách dựa trên chỉ số (index) bắt đầu từ 1."""
+    try:
+        # Chuyển chỉ số từ 1 (người dùng) sang 0 (code)
+        index = task_index - 1
+        
+        # Kiểm tra chỉ số hợp lệ
+        if 0 <= index < len(tasks):
+            deleted_task = tasks.pop(index) # Sử dụng .pop() để xóa theo chỉ số
+            print(f"Công việc số {task_index} ('{deleted_task['name']}') đã được xóa khỏi danh sách.")
+        else:
+            print(f"Lỗi: Chỉ số {task_index} không hợp lệ.")
+    except (TypeError, ValueError):
+        print("Lỗi: Chỉ số công việc phải là một số nguyên.")
 
 def list_tasks():
     """Duyệt qua danh sách và in ra tất cả công việc hiện có."""
@@ -41,21 +55,25 @@ def list_tasks():
 
 
 # --- Điểm bắt đầu của chương trình ---
+# --- Điểm bắt đầu của chương trình ---
 if __name__ == "__main__":
     print("Chào mừng đến với ứng dụng To-Do List!")
 
-    # 1. Thêm công việc (sử dụng cấu trúc mới)
-    add_task("Học bài Git và GitHub")
-    add_task("Làm bài tập thực hành ở nhà")
-    add_task("Chuẩn bị cho Yêu cầu 3")
-
-    # 2. Liệt kê công việc
+    # 1. Thêm công việc
+    add_task("Học bài Git và GitHub")  # Index 1
+    add_task("Làm bài tập thực hành ở nhà") # Index 2
+    add_task("Chuẩn bị cho Yêu cầu 3") # Index 3
+    
+    # 2. Liệt kê lần 1
     list_tasks()
 
-    # 3. Đánh dấu một công việc là hoàn thành (YÊU CẦU MỚI)
-    complete_task(2) # Hoàn thành công việc số 2: "Làm bài tập thực hành ở nhà"
-    complete_task(1) # Hoàn thành công việc số 1: "Học bài Git và GitHub"
-    complete_task(10) # Thử một chỉ số không hợp lệ
+    # 3. Đánh dấu hoàn thành
+    complete_task(1) 
 
-    # 4. Liệt kê lại để xem trạng thái
+    # 4. KIỂM TRA CHỨC NĂNG XÓA (THAY ĐỔI MỚI)
+    print("\n--- KIỂM TRA CHỨC NĂNG XÓA ---")
+    delete_task(3) # Xóa công việc số 3 (Chuẩn bị cho Yêu cầu 3)
+    delete_task(10) # Thử chỉ số không hợp lệ
+    
+    # 5. Liệt kê lần 2 để xem kết quả
     list_tasks()
